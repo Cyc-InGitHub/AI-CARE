@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aicare.mapper.MedicalMrMapper">
+
+    <resultMap type="MedicalMr" id="MedicalMrResult">
+        <result property="mrId" column="mr_id"/>
+        <result property="mrUsrName" column="mr_usr_name"/>
+        <result property="mrParId" column="mr_par_id"/>
+        <result property="mrPatientName" column="mr_patient_name"/>
+        <result property="mrPatientSex" column="mr_patient_sex"/>
+        <result property="mrAcquisitionTime" column="mr_acquisition_time"/>
+        <result property="mrChiefComplaint" column="mr_chief_complaint"/>
+        <result property="mrPresentIllness" column="mr_present_Illness"/>
+        <result property="mrHistoryIllness" column="mr_history_illness"/>
+        <result property="mrImgPerformance" column="mr__img_performance"/>
+        <result property="mrCreattime" column="mr_creattime"/>
+        <result property="mrModify" column="mr_modify"/>
+        <result property="mrDelete" column="mr_delete"/>
+        <result property="mrImgId" column="mr_img_id"/>
+    </resultMap>
+
+    <sql id="selectMedicalMrVo">
+        select mr_id,
+               mr_usr_name,
+               mr_par_id,
+               mr_patient_name,
+               mr_patient_sex,
+               mr_acquisition_time,
+               mr_chief_complaint,
+               mr_present_Illness,
+               mr_history_illness,
+               mr__img_performance,
+               mr_creattime,
+               mr_modify,
+               mr_delete,
+               mr_img_id
+        from medical_mr
+    </sql>
+
+    <select id="selectMedicalMrList" parameterType="MedicalMr" resultMap="MedicalMrResult">
+        <include refid="selectMedicalMrVo"/>
+        <where>
+            <if test="mrUsrName != null  and mrUsrName != ''">and mr_usr_name like concat('%', #{mrUsrName}, '%')</if>
+            <if test="mrParId != null ">and mr_par_id = #{mrParId}</if>
+            <if test="mrPatientName != null  and mrPatientName != ''">and mr_patient_name like concat('%',
+                #{mrPatientName}, '%')
+            </if>
+            <if test="mrPatientSex != null  and mrPatientSex != ''">and mr_patient_sex = #{mrPatientSex}</if>
+            <if test="mrAcquisitionTime != null ">and mr_acquisition_time = #{mrAcquisitionTime}</if>
+            <if test="mrChiefComplaint != null  and mrChiefComplaint != ''">and mr_chief_complaint =
+                #{mrChiefComplaint}
+            </if>
+            <if test="mrPresentIllness != null  and mrPresentIllness != ''">and mr_present_Illness =
+                #{mrPresentIllness}
+            </if>
+            <if test="mrHistoryIllness != null  and mrHistoryIllness != ''">and mr_history_illness =
+                #{mrHistoryIllness}
+            </if>
+            <if test="mrImgPerformance != null  and mrImgPerformance != ''">and mr__img_performance =
+                #{mrImgPerformance}
+            </if>
+            <if test="mrCreattime != null ">and mr_creattime = #{mrCreattime}</if>
+            <if test="mrModify != null ">and mr_modify = #{mrModify}</if>
+            <if test="mrDelete != null  and mrDelete != ''">and mr_delete = #{mrDelete}</if>
+            <if test="mrImgId != null  and mrImgId != ''">and mr_img_id = #{mrImgId}</if>
+        </where>
+    </select>
+
+
+    <select id="selectMedicalMrByMrId" parameterType="String" resultMap="MedicalMrResult">
+        <include refid="selectMedicalMrVo"/>
+        where mr_id = #{mrId}
+    </select>
+
+    <insert id="insertMedicalMr" parameterType="MedicalMr">
+        insert into medical_mr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mrId != null">mr_id,</if>
+            <if test="mrUsrName != null and mrUsrName != ''">mr_usr_name,</if>
+            <if test="mrParId != null">mr_par_id,</if>
+            <if test="mrPatientName != null">mr_patient_name,</if>
+            <if test="mrPatientSex != null">mr_patient_sex,</if>
+            <if test="mrAcquisitionTime != null">mr_acquisition_time,</if>
+            <if test="mrChiefComplaint != null">mr_chief_complaint,</if>
+            <if test="mrPresentIllness != null">mr_present_Illness,</if>
+            <if test="mrHistoryIllness != null">mr_history_illness,</if>
+            <if test="mrImgPerformance != null">mr__img_performance,</if>
+            <if test="mrCreattime != null">mr_creattime,</if>
+            <if test="mrModify != null">mr_modify,</if>
+            <if test="mrDelete != null">mr_delete,</if>
+            <if test="mrImgId != null">mr_img_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mrId != null">#{mrId},</if>
+            <if test="mrUsrName != null and mrUsrName != ''">#{mrUsrName},</if>
+            <if test="mrParId != null">#{mrParId},</if>
+            <if test="mrPatientName != null">#{mrPatientName},</if>
+            <if test="mrPatientSex != null">#{mrPatientSex},</if>
+            <if test="mrAcquisitionTime != null">#{mrAcquisitionTime},</if>
+            <if test="mrChiefComplaint != null">#{mrChiefComplaint},</if>
+            <if test="mrPresentIllness != null">#{mrPresentIllness},</if>
+            <if test="mrHistoryIllness != null">#{mrHistoryIllness},</if>
+            <if test="mrImgPerformance != null">#{mrImgPerformance},</if>
+            <if test="mrCreattime != null">#{mrCreattime},</if>
+            <if test="mrModify != null">#{mrModify},</if>
+            <if test="mrDelete != null">#{mrDelete},</if>
+            <if test="mrImgId != null">#{mrImgId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMedicalMr" parameterType="MedicalMr">
+        update medical_mr
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mrUsrName != null and mrUsrName != ''">mr_usr_name = #{mrUsrName},</if>
+            <if test="mrParId != null">mr_par_id = #{mrParId},</if>
+            <if test="mrPatientName != null">mr_patient_name = #{mrPatientName},</if>
+            <if test="mrPatientSex != null">mr_patient_sex = #{mrPatientSex},</if>
+            <if test="mrAcquisitionTime != null">mr_acquisition_time = #{mrAcquisitionTime},</if>
+            <if test="mrChiefComplaint != null">mr_chief_complaint = #{mrChiefComplaint},</if>
+            <if test="mrPresentIllness != null">mr_present_Illness = #{mrPresentIllness},</if>
+            <if test="mrHistoryIllness != null">mr_history_illness = #{mrHistoryIllness},</if>
+            <if test="mrImgPerformance != null">mr__img_performance = #{mrImgPerformance},</if>
+            <if test="mrCreattime != null">mr_creattime = #{mrCreattime},</if>
+            <if test="mrModify != null">mr_modify = #{mrModify},</if>
+            <if test="mrDelete != null">mr_delete = #{mrDelete},</if>
+            <if test="mrImgId != null">mr_img_id = #{mrImgId},</if>
+        </trim>
+        where mr_id = #{mrId}
+    </update>
+
+    <delete id="deleteMedicalMrByMrId" parameterType="String">
+        delete
+        from medical_mr
+        where mr_id = #{mrId}
+    </delete>
+
+    <delete id="deleteMedicalMrByMrIds" parameterType="String">
+        delete from medical_mr where mr_id in
+        <foreach item="mrId" collection="array" open="(" separator="," close=")">
+            #{mrId}
+        </foreach>
+    </delete>
+
+
+    <select id="selectU" resultMap="MedicalMrResult1">
+        select *
+        from sys_user
+    </select>
+
+
+    <resultMap type="SysUser" id="MedicalMrResult1">
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
+    </resultMap>
+</mapper>

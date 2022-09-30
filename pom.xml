@@ -199,6 +199,13 @@
                 <version>${aicare.version}</version>
             </dependency>
 
+            <!-- 通用工具-->
+            <dependency>
+                <groupId>com.cyc</groupId>
+                <artifactId>aicare-medical</artifactId>
+                <version>${aicare.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -209,6 +216,7 @@
         <module>AICare-quartz</module>
         <module>AICare-generator</module>
         <module>AICare-common</module>
+        <module>aicare-medical</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aicare.mapper.TesMapper">
+
+    <resultMap type="SysUser" id="MedicalMrResult2">
+        <result property="userId"    column="user_id"    />
+        <result property="deptId"    column="dept_id"    />
+
+    </resultMap>
+
+
+
+    <select id="selectU"   resultMap="MedicalMrResult2">
+        select *
+        from sys_user
+    </select>
+
+
+</mapper>

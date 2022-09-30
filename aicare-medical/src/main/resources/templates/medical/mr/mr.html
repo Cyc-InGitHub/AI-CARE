@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('medical-mr列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>患者姓名：</label>
+                                <input type="text" name="mrUsrName"/>
+                            </li>
+                            <li>
+                                <label>所属科：</label>
+                                <input type="text" name="mrParId"/>
+                            </li>
+                            <li>
+                                <label>1：</label>
+                                <input type="text" name="mrPatientName"/>
+                            </li>
+                            <li>
+                                <label>时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择时间" name="mrAcquisitionTime"/>
+                            </li>
+                            <li>
+                                <label>主诉：</label>
+                                <input type="text" name="mrChiefComplaint"/>
+                            </li>
+                            <li>
+                                <label>现病史：</label>
+                                <input type="text" name="mrPresentIllness"/>
+                            </li>
+                            <li>
+                                <label>既往史：</label>
+                                <input type="text" name="mrHistoryIllness"/>
+                            </li>
+                            <li>
+                                <label>影像学表现：</label>
+                                <input type="text" name="mrImgPerformance"/>
+                            </li>
+                            <li>
+                                <label>创建时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择创建时间" name="mrCreattime"/>
+                            </li>
+                            <li>
+                                <label>修改时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择修改时间" name="mrModify"/>
+                            </li>
+                            <li>
+                                <label>物理删除：</label>
+                                <input type="text" name="mrDelete"/>
+                            </li>
+                            <li>
+                                <label>1：</label>
+                                <input type="text" name="mrImgId"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="medical:mr:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="medical:mr:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="medical:mr:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="medical:mr:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('medical:mr:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('medical:mr:remove')}]];
+        var prefix = ctx + "medical/mr";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "medical-mr",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'mrId',
+                    title: 'id',
+                    visible: false
+                },
+                {
+                    field: 'mrUsrName',
+                    title: '患者姓名'
+                },
+                {
+                    field: 'mrParId',
+                    title: '所属科'
+                },
+                {
+                    field: 'mrPatientName',
+                    title: '1'
+                },
+                {
+                    field: 'mrPatientSex',
+                    title: '性别'
+                },
+                {
+                    field: 'mrAcquisitionTime',
+                    title: '时间'
+                },
+                {
+                    field: 'mrChiefComplaint',
+                    title: '主诉'
+                },
+                {
+                    field: 'mrPresentIllness',
+                    title: '现病史'
+                },
+                {
+                    field: 'mrHistoryIllness',
+                    title: '既往史'
+                },
+                {
+                    field: 'mrImgPerformance',
+                    title: '影像学表现'
+                },
+                {
+                    field: 'mrCreattime',
+                    title: '创建时间'
+                },
+                {
+                    field: 'mrModify',
+                    title: '修改时间'
+                },
+                {
+                    field: 'mrDelete',
+                    title: '物理删除'
+                },
+                {
+                    field: 'mrImgId',
+                    title: '1'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.mrId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.mrId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
