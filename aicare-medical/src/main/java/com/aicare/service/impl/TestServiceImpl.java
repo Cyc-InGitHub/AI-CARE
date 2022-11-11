@@ -13,8 +13,6 @@ import java.util.List;
 public class TestServiceImpl implements TestService {
     @Autowired
     private TesMapper tesMapper;
-    @Autowired
-    private MedicalMrMapper medicalMrMapper;
     @Override
     public List<SysUser> selcet()
     {

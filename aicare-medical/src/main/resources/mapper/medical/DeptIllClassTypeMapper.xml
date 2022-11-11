@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aicare.mapper.DeptIllClassTypeMapper">
+    
+    <resultMap type="DeptIllClassType" id="DeptIllClassTypeResult">
+        <result property="typeId"    column="type_id"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="topId"    column="top_id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectDeptIllClassTypeVo">
+        select type_id, type_name, top_id, parent_id, order_num, create_by, create_time, update_by, update_time, del_flag, remark from dept_ill_class_type
+    </sql>
+
+    <select id="selectDeptIllClassTypeList" parameterType="DeptIllClassType" resultMap="DeptIllClassTypeResult">
+        <include refid="selectDeptIllClassTypeVo"/>
+        <where>  
+            <if test="typeName != null  and typeName != ''"> and type_name like concat('%', #{typeName}, '%')</if>
+            <if test="topId != null "> and top_id = #{topId}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+        </where>
+    </select>
+    
+    <select id="selectDeptIllClassTypeByTypeId" parameterType="Long" resultMap="DeptIllClassTypeResult">
+        <include refid="selectDeptIllClassTypeVo"/>
+        where type_id = #{typeId}
+    </select>
+        
+    <insert id="insertDeptIllClassType" parameterType="DeptIllClassType" useGeneratedKeys="true" keyProperty="typeId">
+        insert into dept_ill_class_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name,</if>
+            <if test="topId != null">top_id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">#{typeName},</if>
+            <if test="topId != null">#{topId},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDeptIllClassType" parameterType="DeptIllClassType">
+        update dept_ill_class_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name = #{typeName},</if>
+            <if test="topId != null">top_id = #{topId},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where type_id = #{typeId}
+    </update>
+
+    <delete id="deleteDeptIllClassTypeByTypeId" parameterType="Long">
+        delete from dept_ill_class_type where type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteDeptIllClassTypeByTypeIds" parameterType="String">
+        delete from dept_ill_class_type where type_id in 
+        <foreach item="typeId" collection="array" open="(" separator="," close=")">
+            #{typeId}
+        </foreach>
+    </delete>
+
+    <select id="selectDeptIllClassTypeNameByParentId" resultType="java.util.Map">
+        select type_id, type_name from dept_ill_class_type
+         where parent_id = #{parentId} and del_flag != 2
+         order by order_num asc
+    </select>
+
+    <select id="selectClassTypeList" resultType="java.util.Map">
+        select type_id, type_name from dept_ill_class_type
+        <where>
+            and 1 = 1
+            <if test="parentIds != null and parentIds.size()!= 0">
+                AND parent_id in
+                <foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+                    #{parentId}
+                </foreach>
+            </if>
+            order by order_num asc
+            <if test="offset != null and limit != null">
+                limit #{offset}, #{limit}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectClassTypeListCount" resultType="int">
+        select count(1) from dept_ill_class_type
+        <where>
+            and 1 = 1
+            <if test="parentIds != null and parentIds.size()!= 0">
+                AND parent_id in
+                <foreach collection="parentIds" item="parentId" open="(" separator="," close=")">
+                    #{parentId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDeptIllClassTypeNameByTypeId" resultType="java.util.Map">
+        select report_id, type_id, type_name from hosp_report
+         where type_id = #{typeId} and del_flag != 2
+    </select>
+
+    <select id="fuzzySearchList" resultType="java.util.Map">
+        select type_id, parent_id, type_name
+        from dept_ill_class_type
+        <where>
+            <if test="typeName != null and typeName != ''">
+                AND type_name like concat('%', #{typeName}, '%')
+            </if>
+            and top_id = #{topId}
+            and del_flag != 2
+        </where>
+        order by order_num asc
+    </select>
+
+</mapper>

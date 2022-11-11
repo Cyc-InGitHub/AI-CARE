@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aicare.mapper.MedicalDataTypeMapper">
+    
+    <resultMap type="MedicalDataType" id="MedicalDataTypeResult">
+        <result property="typeId"    column="type_id"    />
+        <result property="typeName"    column="type_name"    />
+        <result property="topTypeId"    column="top_type_id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="levelNum"    column="level_num"    />
+        <result property="isFinal"    column="is_final"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectMedicalDataTypeVo">
+        select type_id, type_name, top_type_id, parent_id, level_num, is_final, order_num, create_by, create_time, update_by, update_time, remark, del_flag from medical_data_type
+    </sql>
+
+    <select id="selectMedicalDataTypeList" parameterType="MedicalDataType" resultMap="MedicalDataTypeResult">
+        <include refid="selectMedicalDataTypeVo"/>
+        <where>  
+            <if test="typeName != null  and typeName != ''"> and type_name like concat('%', #{typeName}, '%')</if>
+            <if test="topTypeId != null "> and top_type_id = #{topTypeId}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="levelNum != null "> and level_num = #{levelNum}</if>
+            <if test="isFinal != null "> and is_final = #{isFinal}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+            <if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+            <if test="delFlag != null  and delFlag != ''"> and del_flag = #{delFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectMedicalDataTypeByTypeId" parameterType="Long" resultMap="MedicalDataTypeResult">
+        <include refid="selectMedicalDataTypeVo"/>
+        where type_id = #{typeId}
+    </select>
+        
+    <insert id="insertMedicalDataType" parameterType="MedicalDataType" useGeneratedKeys="true" keyProperty="typeId">
+        insert into medical_data_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name,</if>
+            <if test="topTypeId != null">top_type_id,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="levelNum != null">level_num,</if>
+            <if test="isFinal != null">is_final,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">#{typeName},</if>
+            <if test="topTypeId != null">#{topTypeId},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="levelNum != null">#{levelNum},</if>
+            <if test="isFinal != null">#{isFinal},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicalDataType" parameterType="MedicalDataType">
+        update medical_data_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="typeName != null and typeName != ''">type_name = #{typeName},</if>
+            <if test="topTypeId != null">top_type_id = #{topTypeId},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="levelNum != null">level_num = #{levelNum},</if>
+            <if test="isFinal != null">is_final = #{isFinal},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where type_id = #{typeId}
+    </update>
+
+    <delete id="deleteMedicalDataTypeByTypeId" parameterType="Long">
+        delete from medical_data_type where type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteMedicalDataTypeByTypeIds" parameterType="String">
+        delete from medical_data_type where type_id in 
+        <foreach item="typeId" collection="array" open="(" separator="," close=")">
+            #{typeId}
+        </foreach>
+    </delete>
+
+    <select id="selectTreeList" resultType="java.util.Map">
+        select * from medical_data_type
+        <where>
+            top_type_id = #{typeId}
+            <if test="typeId == 1"> and is_final != 1 </if>
+        </where>
+
+    </select>
+
+    <select id="getDataType" resultMap="MedicalDataTypeResult">
+		select type_id, type_name, top_type_id, parent_id, level_num, is_final, order_num, create_by, create_time, update_by, update_time, remark, del_flag from medical_data_type where type_id = #{typeId}
+	</select>
+
+    <select id="selectTypeByParentId" resultMap="MedicalDataTypeResult">
+		select * from medical_data_type where parent_id = #{parentId}
+	</select>
+
+    <select id="selectLastLevel" resultType="java.util.Map">
+        select dicomtype.type_id,dicomtype.type_name,dicomtype.top_type_id,dicomtype.parent_id,dicomtype.level_num,dicomtype.is_final,dicomtype.order_num,dicomtype.create_by,date_format(dicomtype.create_time,'%Y-%m-%d %H:%i:%s') create_time,dicomtype.update_by,date_format(dicomtype.update_time,'%Y-%m-%d %H:%i:%s') update_time,dicomtype.remark,td.dicom_id as d_id from medical_data_type dicomtype
+        left join medical_data td on dicomtype.type_id = td.dicom_type_id
+        <where>
+            and is_final = 1
+            <if test="typeName != null and typeName != ''">
+                AND parent_id = #{typeId}
+            </if>
+            <if test="typeIds != null and typeIds.size()!= 0">
+                AND type_id in
+                <foreach collection="typeIds" item="typeId" open="(" separator="," close=")">
+                    #{typeId}
+                </foreach>
+            </if>
+        </where>
+        order by order_num asc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="selectDicomData" resultType="java.util.Map">
+        SELECT
+        dicomtype.type_id,
+        td.dicom_name as type_name,
+        dicomtype.top_type_id,
+        dicomtype.parent_id,
+        dicomtype.level_num,
+        dicomtype.is_final,
+        dicomtype.order_num,
+        dicomtype.create_by,
+        date_format( dicomtype.create_time, '%Y-%m-%d %H:%i:%s' ) create_time,
+        dicomtype.update_by,
+        date_format( dicomtype.update_time, '%Y-%m-%d %H:%i:%s' ) update_time,
+        dicomtype.remark,
+        td.dicom_id AS d_id
+        FROM
+        medical_data td
+        LEFT JOIN medical_data_type dicomtype ON dicomtype.type_id = td.dicom_type_id
+        <where>
+            and is_final = 1
+            <if test="typeName != null and typeName != ''">
+                AND parent_id = #{typeId}
+            </if>
+            <if test="typeIds != null and typeIds.size()!= 0">
+                AND type_id in
+                <foreach collection="typeIds" item="typeId" open="(" separator="," close=")">
+                    #{typeId}
+                </foreach>
+            </if>
+        </where>
+        order by d_id desc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="selectDicomDataCount" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        medical_data td
+        LEFT JOIN medical_data_type dicomtype ON dicomtype.type_id = td.dicom_type_id
+        <where>
+            and is_final = 1
+            <if test="typeName != null and typeName != ''">
+                AND parent_id = #{typeId}
+            </if>
+            <if test="typeIds != null and typeIds.size()!= 0">
+                AND type_id in
+                <foreach collection="typeIds" item="typeId" open="(" separator="," close=")">
+                    #{typeId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectLastLevelCount" resultType="int">
+        select count(1) from medical_data_type
+        <where>
+            and is_final = 1
+            <if test="typeName != null and typeName != ''">
+                AND parent_id = #{typeId}
+            </if>
+            <if test="typeIds != null and typeIds.size()!= 0">
+                AND type_id in
+                <foreach collection="typeIds" item="typeId" open="(" separator="," close=")">
+                    #{typeId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>

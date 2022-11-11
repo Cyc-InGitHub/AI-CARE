@@ -1,0 +1,70 @@
+package com.aicare.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.aicare.domain.HospDept;
+
+/**
+ * 医学数据科目Service接口
+ * 
+ * @author zhyl
+ * @date 2022-10-07
+ */
+public interface IHospDeptService 
+{
+    /**
+     * 查询医学数据科目
+     * 
+     * @param deptId 医学数据科目主键
+     * @return 医学数据科目
+     */
+    public HospDept selectHospDeptByDeptId(Integer deptId);
+
+    /**
+     * 查询医学数据科目列表
+     * 
+     * @param hospDept 医学数据科目
+     * @return 医学数据科目集合
+     */
+    public List<HospDept> selectHospDeptList(HospDept hospDept);
+
+    /**
+     * 新增医学数据科目
+     * 
+     * @param hospDept 医学数据科目
+     * @return 结果
+     */
+    public int insertHospDept(HospDept hospDept);
+
+    /**
+     * 修改医学数据科目
+     * 
+     * @param hospDept 医学数据科目
+     * @return 结果
+     */
+    public int updateHospDept(HospDept hospDept);
+
+    /**
+     * 批量删除医学数据科目
+     * 
+     * @param deptIds 需要删除的医学数据科目主键集合
+     * @return 结果
+     */
+    public int deleteHospDeptByDeptIds(String deptIds);
+
+    /**
+     * 删除医学数据科目信息
+     * 
+     * @param deptId 医学数据科目主键
+     * @return 结果
+     */
+    public int deleteHospDeptByDeptId(Integer deptId);
+
+    /**
+     * 查询医学数据科目名称并根据order_num排序
+     *
+     * @return 医学数据科目名称集合
+     */
+    public List<Map<String, Object>> selectHospDeptNameListOrder();
+}
