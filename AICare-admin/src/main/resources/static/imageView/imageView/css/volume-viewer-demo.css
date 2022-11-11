@@ -1,0 +1,197 @@
+
+body {
+  background-color: #000000;
+}
+
+#title {
+  height: 60px;
+}
+
+#instructions{
+  line-height: 60px;
+  /*text-align: center;*/
+  margin-left: 450px;
+  color: #e4ad00;
+}
+
+.navbar-header{
+  padding-left: 15px;
+}
+.navbar-brand{
+  color: #777;
+  line-height: 35px;
+}
+.navbar-brand:hover{
+  color: #5e5e5e;
+}
+
+#loading {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+#brainbrowser-wrapper {
+  /*width: 70em;*/
+  /*margin: 50px auto;*/
+}
+
+#volume-viewer {
+  /*display: inline-block;*/
+  background-color: #FFFFFF;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+/* 2维样式*/
+/*.csthumbnail {*/
+/*  float: left;*/
+/*  margin-left: 0;*/
+/*  margin-top: 30px;*/
+/*  color: white;*/
+/*  background-color: black;*/
+/*  width: 100px;*/
+/*  height: 100px;*/
+/*  border: 1px white solid;*/
+/*  padding: 0;*/
+/*}*/
+/*#csthumbnail canvas.cornerstone-canvas{*/
+
+/*}*/
+/*.imageViewer{*/
+/*  height: 900px;*/
+/*}*/
+/*.viewport.ui-droppable{*/
+/*  height: 700px;*/
+/*  width: 500px;*/
+/*}*/
+
+/*.btn-group button {*/
+/*  width: 98%;*/
+/*}*/
+
+/*.btn-default {*/
+/*  color: #ffffff;*/
+/*  background-color: #424242;*/
+/*  border-color: #424242;*/
+/*}*/
+
+/* 3维样式*/
+.volume-container {
+  /*display: table-cell;*/
+}
+/*.volume-viewer-display {*/
+/*  width: 965px;*/
+/*  height: 620px;*/
+/*  margin-left: 2px;*/
+/*  display: inline-block;*/
+/*  border: 1px solid #424242;*/
+/*}*/
+
+canvas.slice-display {
+  display: block;
+  margin: 3px 5px;
+}
+
+.volume-viewer-controls {
+  font-size: 12px;
+  /*padding: 10px;*/
+  /*margin: 3px 5px;*/
+  /*background: #555555;*/
+  /*color: #F0F0F0;*/
+}
+
+.volume-viewer-controls > div {
+  margin-bottom: 10px;
+}
+
+.volume-controls {
+  width: 360px;
+  height: 615px;
+  float: right;
+}
+
+#global-controls {
+  -moz-border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
+  /*padding-bottom: 0;*/
+}
+
+#global-controls #instructions {
+  padding: 10px 0 5px 0;
+}
+
+.control-heading {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.control-heading:not(:first-child) {
+  margin-top: 12px;
+}
+
+.control-inputs {
+  border: none;
+  padding: 2px;
+  margin-left: 10px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 1px 1px 0px 0px #787878;
+  -webkit-box-shadow: 1px 1px 0px 0px #787878;
+  box-shadow: 1px 1px 0px 0px #787878;
+  width: 3em;
+  font-size: 10px;
+}
+
+.coords .control-inputs {
+  margin-right: 0.6em;
+  width: 40px;
+  font-size: 10px;
+}
+
+.volume-viewer-threshold, .volume-viewer-blend {
+  width: 80%;
+  margin: auto;
+}
+
+.ui-slider .ui-slider-handle .ui-state-default .ui-corner-all {
+  color: #777777 !important;
+  font-size: 10px;
+  padding: 3px;
+  text-shadow: 0 1px 0 #FFFFFF;
+  text-decoration:none;
+}
+
+.slider {
+  margin-top: 1.5em!important;
+  margin-bottom: 1em!important;
+}
+
+.thresh-inputs {
+  position: relative;
+  height: 1em;
+}
+
+.thresh-input-left {
+  position: absolute;
+  left: 3px;
+}
+
+.thresh-input-right {
+  position: absolute;
+  right: 10px;
+}
+
+.slice-series-button {
+  font-size: 11px;
+}
+
+.intensity-value {
+  padding: 2px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+

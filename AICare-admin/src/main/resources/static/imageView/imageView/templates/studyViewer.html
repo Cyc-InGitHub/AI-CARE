@@ -1,0 +1,160 @@
+<div id="studyViewerTemplate" class="tab-pane active hidden" style="height:100%">
+    <div class="studyContainer" style="height:100%;overflow:hidden;">
+        <div class="studyRow row" style="height:100%">
+
+            <!-- Thumbnails -->
+            <div class="thumbnailSelector">
+                <div class="thumbnails list-group" id="list-group">
+                </div>
+            </div>
+
+            <!-- Viewer -->
+            <div class="viewer" id="viewer">
+                <!-- Toolbar -->
+                <div class="text-center" id="function-btn">
+                    <div id="btn-img">
+                        <div>
+                            <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            加载示例图像
+                            </button>
+                        </div>
+                        <div id="upload-img" style="display: inline-block">
+                            <span class="choose-file">选择文件:</span>
+                            <input type="file" name="file-upload" id="file-upload" multiple  accept=".dcm,.nii">
+                        </div>
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                             data-placement="bottom" style="width: 96px; margin: 0 25px 6px 10px;">
+                            上传
+                        </button>
+                    </div>
+                    <div class="btn-group" style="height: 90vh;overflow-y: auto ">
+                        <!-- WW/WL -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/1.png" height="20"/><br>调窗
+                        </button>
+                        <!-- Invert -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/2.png" height="20"/><br>反片
+                        </button>
+                        <!-- Zoom -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/3.png" height="20"/><br>缩放
+                        </button>
+                        <!-- Pan -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/4.png" height="20"/><br>移动
+                        </button>
+                        <!-- Stack scroll -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/5.png" height="20"/><br>翻图
+                        </button>
+                        <!-- Length measurement -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/6.png" height="20"/><br>直线
+                        </button>
+                        <!-- Angle measurement -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/7.png" height="20"/><br>角度
+                        </button>
+                        <!-- Pixel probe -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/8.png" height="20"/><br>坐标点
+                        </button>
+                        <!-- Elliptical ROI -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/9.png" height="20"/><br>圆形
+                        </button>
+                        <!-- Rectangle ROI -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/10.png" height="20"/><br>矩形
+                        </button>
+                        <!-- Play clip -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/11.png" height="20"/><br>播放
+                        </button>
+                        <!-- Stop clip -->
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>停止
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>透镜
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>区域调窗
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>箭头
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>简单角
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>旋转
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>高亮
+                        </button>
+
+
+
+                        <button type="button" id="screenshot" class="btn btn-sm btn-default" data-container='body'
+                                data-toggle="tooltip" data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>截图
+                        </button>
+
+                        <button type="button" id="To3D" class="btn btn-sm btn-default" data-container='body'
+                                data-toggle="tooltip" data-placement="bottom">
+                            <img src="./studies/image/12.png" height="20"/><br>3D
+                        </button>
+
+                        <!--                    <button type="button" class="btn btn-sm btn-default" data-container='body' id="headerDicom" data-toggle="tooltip" data-placement="bottom" >-->
+                        <!--                        <img src="studies/image/header.png" height="20"  /><br>头文件-->
+                        <!--                    </button>-->
+                        <!--                    <button type="button" class="btn btn-sm btn-default" datatype="1" id="Three" data-container='body' data-toggle="tooltip" data-placement="bottom" >-->
+                        <!--                        <img src="studies/image/three.png" height="20"  /><br><span>3D</span></button>-->
+
+                                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-container='body' data-toggle="dropdown" aria-expanded="false" data-placement="top" >
+                                                <img src="studies/image/13.png" height="20"  /><br>图像布局
+                                            </button>
+                                            <ul class="pull-right dropdown-menu choose-layout" role="menu">
+                                                <li><a href="#">1x1</a></li>
+                                                <li><a href="#">2x1</a></li>
+                                                <li><a href="#">1x2</a></li>
+                                                <li><a href="#">2x2</a></li>
+                                            </ul>
+                    </div>
+                </div>
+
+                <!-- Viewer -->
+                <div class="imageViewer" style="height: 100% !important;"></div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+    </div>
+</div>

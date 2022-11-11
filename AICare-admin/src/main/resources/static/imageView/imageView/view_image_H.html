@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<head>
+    <!-- 支持移动触摸设备 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>
+        案例阅片
+    </title>
+    <link type="text/css" href="../BrainBrowser/css/ui-darkness/jquery-ui-1.8.10.custom.css" rel="Stylesheet"/>
+    <link type="text/css" href="css/bootstrap.min.css" rel="Stylesheet"/>
+    <link type="text/css" href="css/cornerstoneDemo.css" rel="Stylesheet"/>
+    <link type="text/css" href="css/volume-viewer-demo.css" rel="Stylesheet"/>
+    <link type="text/css" href="css/volume-viewer-demo_H.css" rel="Stylesheet"/>
+</head>
+<body style="cursor: default;">
+<script id="volume-ui-template" type="x-volume-ui-template">
+    <div class="volume-viewer-display"></div>
+
+    <div class="volume-viewer-controls volume-controls">
+
+        <div class="coords">
+            <div class="control-heading" id="voxel-coordinates-heading-{{VOLID}}">
+                Voxel Coordinates:
+            </div>
+            <div class="voxel-coords" data-volume-id="{{VOLID}}">
+                I:<input id="voxel-i-{{VOLID}}" class="control-inputs">
+                J:<input id="voxel-j-{{VOLID}}" class="control-inputs">
+                K:<input id="voxel-k-{{VOLID}}" class="control-inputs">
+            </div>
+        </div>
+
+        <div id="intensity-value-div-{{VOLID}}">
+        <span class="control-heading" data-volume-id="{{VOLID}}">
+          Value:
+        </span>
+            <span id="intensity-value-{{VOLID}}" class="intensity-value"></span>
+        </div>
+
+        <div id="color-map-{{VOLID}}">
+        <span class="control-heading" id="color-map-heading-{{VOLID}}">
+          Color Map:
+        </span>
+        </div>
+
+        <div id="color-map-file-{{VOLID}}" class="color-map-file-div" data-volume-id="{{VOLID}}">
+            <span class="control-heading">Color map file: </span><input type="file" name="color-map-file-{{VOLID}}"
+                                                                        class="color-map-file">
+        </div>
+
+<!--        <div class="threshold-div" data-volume-id="{{VOLID}}">-->
+<!--            <div class="control-heading">-->
+<!--                Threshold:-->
+<!--            </div>-->
+<!--            <div class="thresh-inputs">-->
+<!--                <input id="min-threshold-{{VOLID}}" class="control-inputs thresh-input-left" value="0"/>-->
+<!--                <input id="max-threshold-{{VOLID}}" class="control-inputs thresh-input-right" value="255"/>-->
+<!--            </div>-->
+<!--            <div class="slider volume-viewer-threshold" id="threshold-slider-{{VOLID}}"></div>-->
+<!--        </div>-->
+
+<!--        <div class="contrast-div" data-volume-id="{{VOLID}}">-->
+<!--            <span class="control-heading" id="contrast-heading{{VOLID}}">Contrast (0.0 to 2.0):</span>-->
+<!--            <input class="control-inputs" value="1.0" id="contrast-val"/>-->
+<!--            <div id="contrast-slider" class="slider volume-viewer-contrast"></div>-->
+<!--        </div>-->
+
+<!--        <div class="brightness-div" data-volume-id="{{VOLID}}">-->
+<!--            <span class="control-heading" id="brightness-heading{{VOLID}}">Brightness (-1 to 1):</span>-->
+<!--            <input class="control-inputs" value="0" id="brightness-val"/>-->
+<!--            <div id="brightness-slider" class="slider volume-viewer-brightness"></div>-->
+<!--        </div>-->
+
+<!--        <div id="slice-series-{{VOLID}}" class="slice-series-div" data-volume-id="{{VOLID}}">-->
+<!--            <div class="control-heading" id="slice-series-heading-{{VOLID}}">All slices:</div>-->
+<!--            <span class="slice-series-button button" data-axis="xspace">Sagittal</span>-->
+<!--            <span class="slice-series-button button" data-axis="yspace">Coronal</span>-->
+<!--            <span class="slice-series-button button" data-axis="zspace">Transverse</span>-->
+<!--        </div>-->
+        <div id="To2D" class="To2D">
+            <span class="slice-series-button button 2D">2D</span>
+        </div>
+
+    </div>
+</script>
+<script id="overlay-ui-template" type="x-volume-ui-template">
+    <div class="overlay-viewer-display">
+    </div>
+    <div class="volume-viewer-controls volume-controls">
+
+        <div class="coords">
+            <div class="control-heading" id="voxel-coordinates-heading-{{VOLID}}">
+                Voxel Coordinates:
+            </div>
+            <div class="voxel-coords" data-volume-id="{{VOLID}}">
+                I:<input id="voxel-i-{{VOLID}}" class="control-inputs">
+                J:<input id="voxel-j-{{VOLID}}" class="control-inputs">
+                K:<input id="voxel-k-{{VOLID}}" class="control-inputs">
+            </div>
+        </div>
+
+        <div id="intensity-value-div-{{VOLID}}">
+        <span class="control-heading" data-volume-id="{{VOLID}}">
+          Value:
+        </span>
+            <span id="intensity-value-{{VOLID}}" class="intensity-value"></span>
+        </div>
+
+<!--        <div class="blend-div" data-volume-id="{{VOLID}}">-->
+<!--            <span class="control-heading" id="blend-heading{{VOLID}}">Blend (0.0 to 1.0):</span>-->
+<!--            <input class="control-inputs" value="0.5" id="blend-val"/>-->
+<!--            <input class="control-inputs" value="0.5" id="blend-valt"/>-->
+<!--            <div id="blend-slider" class="slider volume-viewer-blend"></div>-->
+<!--            <div id="blend-slidert" class="slider volume-viewer-blend"></div>-->
+<!--        </div>-->
+
+<!--        <div class="contrast-div" data-volume-id="{{VOLID}}">-->
+<!--            <span class="control-heading" id="contrast-heading{{VOLID}}">Contrast (0.0 to 2.0):</span>-->
+<!--            <input class="control-inputs" value="1.0" id="contrast-val"/>-->
+<!--            <div id="contrast-slider" class="slider volume-viewer-contrast"></div>-->
+<!--        </div>-->
+
+<!--        <div class="brightness-div" data-volume-id="{{VOLID}}">-->
+<!--            <span class="control-heading" id="brightness-heading{{VOLID}}">Brightness (-1 to 1):</span>-->
+<!--            <input class="control-inputs" value="0" id="brightness-val"/>-->
+<!--            <div id="brightness-slider" class="slider volume-viewer-brightness"></div>-->
+<!--        </div>-->
+    </div>
+</script>
+
+<div id="wrapper">
+    <div id="title">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">智慧医疗创新技术平台</a>
+        </div>
+
+        <div id="loading" style="display: none">
+            <img src="../BrainBrowser/img/ajax-loader.gif"/>
+        </div>
+
+        <div id="instructions" style="display: none">
+            Shift-click to drag. Hold ctrl to measure distance.
+        </div>
+    </div>
+
+    <div class="main" id="main">
+
+        <div id="tabContent" class="tab-content"></div>
+
+        <div id="brainbrowser-wrapper" style="display:none">
+            <div id="control">
+                <div id="global-controls" class="volume-viewer-controls">
+<!--                    <div id="color-map">-->
+<!--                        <span class="control-heading" id="color-map-heading1">-->
+<!--                            Color Map:-->
+<!--                        </span>-->
+<!--                    </div>-->
+
+                    <div class="instructions">
+<!--                        <div class="line1"></div>-->
+
+                        <div id="btn-img">
+                            <div>
+                                <button type="button" id="load-example" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                        data-placement="bottom">
+                                    加载示例图像
+                                </button>
+                            </div>
+                            <div id="upload-img" style="display: inline-block">
+                                <span class="choose-file">选择文件:</span>
+                                <input type="file" name="file-upload" id="file-upload" multiple  accept=".dcm,.nii">
+                            </div>
+                            <button type="button" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom" style="width: 96px; margin: 0 45px 6px 40px;">
+                                上传
+                            </button>
+                        </div>
+
+                        <div id="Crosshairs">
+                            <label>
+                                <input type="radio" id="hiddenCrosshairs" name="Crosshair" value="hiddenCrosshairs">
+                                <span> &nbsp; Crosshair_hidden</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="showCrosshairs0" name="Crosshair" value="showCrosshairs0" checked="checked">
+                                <span> &nbsp; Crosshair</span>
+                            </label>
+                            <label>
+                                <input type="radio" id="showCrosshairs1" name="Crosshair" value="showCrosshairs1">
+                                <span> &nbsp; Crosshair_full</span>
+                            </label>
+                        </div>
+
+                        <div class="btn-group" style="overflow-y: auto ">
+                            <button type="button" id="clear" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>清除
+                            </button>
+                            <!-- WW/WL -->
+                            <button type="button" id="WW-WL" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/1.png" height="20"/><br>调窗
+                            </button>
+                            <!-- Invert -->
+                            <button type="button" id="Invert" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/2.png" height="20"/><br>反片
+                            </button>
+                            <!-- Zoom -->
+                            <button type="button" id="Zoom-D" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/3.png" height="20"/><br>放大
+                            </button>
+                            <button type="button" id="Zoom-x" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/3.png" height="20"/><br>缩小
+                            </button>
+                            <!-- Pan -->
+                            <button type="button" id="Pan" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/4.png" height="20"/><br>移动
+                            </button>
+
+                            <!-- Length measurement -->
+                            <button type="button" id="Length" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/6.png" height="20"/><br>直线
+                            </button>
+
+
+                            <button type="button" id="screenshot" class="btn btn-sm btn-default" data-container='body'
+                                    data-toggle="tooltip" data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>截  图
+                            </button>
+
+                            <button type="button" id="Sagittal" class="btn btn-sm btn-default" data-container='body'
+                                    data-toggle="tooltip" data-axis="xspace" data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>矢状面
+                            </button>
+
+                            <button type="button" id="Coronal" class="btn btn-sm btn-default" data-container='body'
+                                    data-toggle="tooltip" data-axis="yspace" data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>冠状面
+                            </button>
+
+                            <button type="button" id="Transverse" class="btn btn-sm btn-default" data-container='body'
+                                    data-toggle="tooltip" data-axis="zspace" data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>横断面
+                            </button>
+
+                            <button type="button" id="arrow" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>箭头
+                            </button>
+
+                            <!-- Elliptical ROI -->
+                            <button type="button" id="Elliptical" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/9.png" height="20"/><br>圆形
+                            </button>
+                            <!-- Rectangle ROI -->
+                            <button type="button" id="Rectangle" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/10.png" height="20"/><br>矩形
+                            </button>
+
+                            <button type="button" id="simpleAngle" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>简单角
+                            </button>
+
+                            <button type="button" id="3D-webgl" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>3维测试1
+                            </button>
+
+                            <button type="button" id="3D-webgl2" class="btn btn-sm btn-default" data-container='body' data-toggle="tooltip"
+                                    data-placement="bottom">
+                                <img src="./studies/image/12.png" height="20"/><br>3维测试2
+                            </button>
+                        </div>
+
+                        <ul class='navigation'>
+<!--                            <li id='volume' class='navigationLi'>-->
+                                <div class='menu'>
+<!--                                <div class='pin'>-->
+<!--                                    <span class='ui-icon ui-icon-pin-w pinicon'></span>-->
+<!--                                </div>-->
+                                <div class='tabbox idTabs' id='volumetabs'>
+<!--                                    <div class='caption'>VOLUME</div>-->
+                                    <a href='#volumeTab' class='selected'></a>
+<!--                                    <a href='#labelmapTab' id='labelmapSwitch'-->
+<!--                                        style='margin-left: 50px;'>Labelmap</a>-->
+                                    <div id='volumeTab' class='tabContent'>
+
+<!--                                        <div id='modes' style='width: 130px; float: left;'>-->
+<!--                                            <div id='volumerendering'>-->
+<!--                                                <img src='gfx/3d.png' />-->
+<!--                                            </div>-->
+<!--                                            <div id='slicing'>-->
+<!--                                                <img src='gfx/2d.png' />-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                        <div id='colors'-->
+<!--                                             style='width: 26px; margin-left: 6px; float: left;'>-->
+
+<!--                                            <input id='fgColorVolume' type='hidden'-->
+<!--                                                   class='color-picker black' size='6' value='#ffffff' /> <input-->
+<!--                                                id='bgColorVolume' type='hidden' class='color-picker black'-->
+<!--                                                size='6' value='#000000' />-->
+<!--                                        </div>-->
+
+                                        <div id='opacity-label' class='menuLabel'
+                                             style='margin-top: 4px; float: left;'>3D Opacity</div>
+                                        <div id='opacity-volume'
+                                             style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+                                        <div id='windowlevel-label' class='menuLabel'
+                                             style='margin-top: 4px; float: left;'>Window/Level</div>
+                                        <div id='windowlevel-volume'
+                                             style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+                                        <div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>
+                                        <div id='threshold-volume'
+                                             style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+<!--                            </li>-->
+                        </ul>
+
+                        <ul id="RotationMenu00" class="papaya-menu" style="display: block;width: 320px;background: #222;
+                                                                            border: solid 2px darkgray;padding: 4px;
+                                                                            margin-top: 30px;list-style-type: none;">
+                            <li id="rotationX">
+                                <span style="padding-right:5px;" class="papaya-menu-unselectable">About X Axis:</span>
+                                <div id="rotationX0_0Slider"></div>
+<!--                                <input min="0" max="100" value="50" id="rotationX0_0Slider" class="papaya-menu-slider" type="range">-->
+                            </li>
+                            <li id="rotationY">
+                                <span style="padding-right:5px;" class="papaya-menu-unselectable">About Y Axis:</span>
+                                <div id="rotationY0_0Slider"></div>
+<!--                                <input min="0" max="100" value="50" id="rotationY0_0Slider" class="papaya-menu-slider" type="range">-->
+                            </li>
+                            <li id="rotationZ">
+                                <span style="padding-right:5px;" class="papaya-menu-unselectable">About Z Axis:</span>
+                                <div id="rotationZ0_0Slider"></div>
+<!--                                <input min="0" max="100" value="50" id="rotationZ0_0Slider" class="papaya-menu-slider" type="range">-->
+                            </li>
+                        </ul>
+
+
+
+
+<!--                        <div id="btn-img">-->
+<!--                            <button class="button" id="load-example">-->
+<!--                                加载示例图像-->
+<!--                            </button>-->
+<!--                            <div id="upload-img">-->
+<!--                                <span class="choose-file">选择文件:</span>-->
+<!--                                <input type="file" name="file-upload" id="file-uploads" multiple="multiple" accept=".dcm,.nii">-->
+<!--                            </div>-->
+<!--                            <button class="button" id="upload-image" style="width: 96px">-->
+<!--                                上传-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <div class="control-heading">标签标注</div>
+                        <button id="sabutton" class="button">清除</button>
+                        <button id="begin" class="button">标注</button>
+                        <span id="draw" class="button">绘画</span>
+                        <div>
+                            <div class="linedisplay control-heading">MaskName:</div>
+                            <input id="maskname"/>.nii
+                            <button id="savenii" class="button">保存</button>
+                        </div>
+                        <div>
+                            <div class="linedisplay control-heading">标注等级:</div>
+                            <select class="linedisplay" id="grade">
+                                <option value="1">等级1</option>
+                                <option value="2">等级2</option>
+                                <option value="3">等级3</option>
+                                <option value="4">等级4</option>
+                                <option value="5">等级5</option>
+                                <option value="6">等级6</option>
+                                <option value="7">等级7</option>
+                                <option value="8">等级8</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line1"></div>
+<!--                    <span class="control-heading">标签选择: </span>-->
+<!--                    <input type="file" name="nifti1-file" id="nifti1-file">-->
+<!--                    <span id="volume-file-nifti1-submit" class="button">Load</span>-->
+<!--                    <div id="color-map2">-->
+<!--                        <span class="control-heading" id="color-map-heading2">-->
+<!--                            Color Map:-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div id="blend-box">-->
+<!--                        <div class="blend-div" data-volume-id="blend1">-->
+<!--                            <span class="control-heading" id="blend-heading1">标签Blend (0.0 to 1.0):</span>-->
+<!--                            <input class="control-inputs" value="0.5" id="blend-val1"/>-->
+<!--                            <div id="blend-slider1" class="slider volume-viewer-blend"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div id="blend-box1">-->
+<!--                        <div class="blend-div" data-volume-id="blend2">-->
+<!--                            <span class="control-heading" id="blend-heading2">Blend (0.0 to 1.0):</span>-->
+<!--                            <input class="control-inputs" value="1" id="blend-val2"/>-->
+<!--                            <div id="blend-slider2" class="slider volume-viewer-blend"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+
+            <div id="volume-viewer" class="volume1">
+                <div id="brainbrowser">
+                    <div id="edit">
+
+                        <div id="edit1">
+                            <div class="canvas-div">
+                                <canvas id="editbox" data-axis="yspace"></canvas>
+                                <div class="help">
+                                    <button id="saveimg0" class="saveimg"></button>
+                                    <button id="1" class="voxel1"></button>
+                                    <div id="scroll1" class="scroll">
+                                        <div id="bar1" class="bar"></div>
+                                    </div>
+                                    <button id="2" class="voxel"></button>
+                                </div>
+                            </div>
+
+                            <div class="canvas-div">
+                                <canvas id="edit1box" data-axis="yspace"></canvas>
+                                <div class="help">
+                                    <button id="saveimg1" class="saveimg"></button>
+                                    <button id="3" class="voxel1"></button>
+                                    <div id="scroll2" class="scroll">
+                                        <div id="bar2" class="bar"></div>
+                                    </div>
+                                    <button id="4" class="voxel"></button>
+                                </div>
+                            </div>
+<!--                            <div id="xy">-->
+                                <div class="xspace_grade">
+                                    <input placeholder="" type="text" class="tex" id="voxeli1"/>
+                                </div>
+                                <div class="yspace_grade">
+                                    <input placeholder="" type="text" class="tex" id="voxeli2"/>
+                                </div>
+<!--                            </div>-->
+                            <div class="canvas-div">
+                                <canvas id="edit2box" data-axis="yspace"></canvas>
+                                <div class="help">
+                                    <button id="saveimg2" class="saveimg"></button>
+                                    <button id="5" class="voxel1"></button>
+
+                                    <div id="scroll3" class="scroll">
+                                        <div id="bar3" class="bar"></div>
+                                    </div>
+                                    <button id="6" class="voxel"></button>
+                                </div>
+                            </div>
+
+                            <!-- 3维测试 -->
+                            <div class="threeDRenderer" id="3d">
+<!--                                <canvas class="webgl threeDRenderer" id="webgl-3d"></canvas>-->
+                            </div>
+
+                            <div class="zspace_grade">
+                                <input placeholder="请输入文字" type="text" class="tex" id="voxeli3"/>
+                            </div>
+
+
+<!--                            <div id='opacity-label' class='menuLabel'-->
+<!--                                 style='margin-top: 4px; float: left;'>3D Opacity</div>-->
+<!--                            <div id='opacity-volume'-->
+<!--                                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>-->
+
+<!--                            <div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>-->
+<!--                            <div id='threshold-volume'-->
+<!--                                 style='margin-left: 10px; margin-top: 4px; float: left;display: inline-block'>-->
+<!--                            </div>-->
+                        </div>
+
+                        <!--  点击绘画按钮时展示该div-->
+                        <div id="edit2">
+                            <div class="canvas-div">
+                                <canvas id="coverbox" width="400" height="300"></canvas>
+                                <div class="help" id="help1">
+                                    <button id="coverimg1" class="saveimg"></button>
+                                    <button id="7" class="voxel1"></button>
+
+                                    <div id="scroll4" class="scroll">
+                                        <div id="bar4" class="bar"></div>
+                                    </div>
+                                    <button id="8" class="voxel"></button>
+                                </div>
+                            </div>
+
+                            <div class="canvas-div">
+                                <canvas id="coverbox1" width="400" height="300"></canvas>
+                                <div class="help">
+                                    <button id="coverimg2" class="saveimg"></button>
+                                    <button id="9" class="voxel1"></button>
+
+                                    <div id="scroll5" class="scroll">
+                                        <div id="bar5" class="bar"></div>
+                                    </div>
+                                    <button id="10" class="voxel"></button>
+                                </div>
+                            </div>
+
+                            <div class="xspace_grade">
+                                <button id="accept1" class="maskbutton">accept</button>
+                                <button id="complete1" class="maskbutton">complete</button>
+                                <button id="delete1" class="maskbutton">undo last point</button>
+                                <button id="clear1" class="maskbutton">clear</button>
+                            </div>
+                            <div class="yspace_grade">
+                                <button id="accept2" class="maskbutton">accept</button>
+                                <button id="complete2" class="maskbutton">complete</button>
+                                <button id="delete2" class="maskbutton">undo last point</button>
+                                <button id="clear2" class="maskbutton">clear</button>
+                            </div>
+
+                            <div class="canvas-div">
+                                <canvas id="coverbox2" width="400" height="300"></canvas>
+                                <div class="help">
+                                    <button id="coverimg3" class="saveimg"></button>
+                                    <button id="11" class="voxel1"></button>
+
+                                    <div id="scroll6" class="scroll">
+                                        <div id="bar6" class="bar"></div>
+                                    </div>
+                                    <button id="12" class="voxel"></button>
+                                </div>
+
+                            <canvas class="webgl"></canvas>
+                            <div class="zspace_grade">
+                                <button id="accept3" class="maskbutton">accept</button>
+                                <button id="complete3" class="maskbutton">complete</button>
+                                <button id="delete3" class="maskbutton">undo last point</button>
+                                <button id="clear3" class="maskbutton">clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--<script src="js/js_H/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>-->
+<!--<script src="../BrainBrowser/js/jquery-1.6.4.min.js"></script>-->
+<script src="./js/lib/jquery.js"></script>
+<!--解决jquery版本不同造成的问题-->
+<script type="text/javascript">
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+</script>
+
+<script src="./js/lib/jquery-ui.min.js"></script>
+<!--<script src="./js/lib/jquery.min.js"></script>-->
+<script src="./js/lib/bootstrap.js"></script>
+<script src="../BrainBrowser/js/jquery-ui-1.8.10.custom.min.js"></script>
+<!--<script src="../BrainBrowser/js/ui.js"></script>-->
+<script src="../BrainBrowser/js/pako.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/brainbrowser.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/core/tree-store.js"></script>
+
+<script src="../BrainBrowser/js/brainbrowser/lib/config.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/lib/utils.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/lib/events.js"></script>
+<!--<script src="../BrainBrowser/js/brainbrowser/lib/loader.js"></script>-->
+<script src="./js/loader.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/lib/color-map.js"></script>
+
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer.js"></script>-->
+<script src="./js/js_H/volume-viewer.js"></script>
+
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/lib/display.js"></script>-->
+<script src="./js/js_H/display.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/volume-viewer/lib/panel.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/volume-viewer/lib/utils.js"></script>
+
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/modules/loading.js"></script>-->
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/modules/rendering.js"></script>-->
+<script src="./js/js_H/loading.js"></script>
+<script src="./js/js_H/rendering.js"></script>
+
+
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/overlay.js"></script>-->
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/minc.js"></script>-->
+<!--<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/nifti1.js"></script>-->
+<script src="./js/js_H/overlay.js"></script>
+<script src="./js/js_H/minc.js"></script>
+<script src="./js/js_H/nifti1.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/mgh.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/hdf5.js"></script>
+<script src="../BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/netcdf.js"></script>
+<script src="./js/js_H/sea.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../Dicom-js/daikon.js"></script>
+<script src="../Dicom-js/dicom_header.js"></script>
+<script src="../Dicom-js/hammer.min.js"></script>
+<script src="../Dicom-js/cornetstone-2.2.6.js"></script>
+<script src="../Dicom-js/cornerstoneMath.js"></script>
+<script src="../Dicom-js/cornerstoneTools-2.6.0.js"></script>
+<script src="../Dicom-js/dicomParser.js"></script>
+<!--<script src="BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/cornerstoneWADOImageLoaderCodecs.js"></script>-->
+<!--<script src="BrainBrowser/js/brainbrowser/volume-viewer/volume-loaders/cornerstoneWADOImageLoaderWebWorker.js"></script>-->
+<script src="../Dicom-js/cornerstoneWADOImageLoader.js"></script>
+<script src="./js/Dicom1.js"></script>
+
+<script src="volume-viewer-demo.config.js"></script>
+
+<script src="./js/setupButtons.js"></script>
+<!-- 设置视口 -->
+<script src="./js/setupViewport.js"></script>
+<!-- 显示缩略图 -->
+<script src="./js/displayThumbnail.js"></script>
+<!-- 禁用所有工具 -->
+<script src="./js/disableAllTools.js"></script>
+<!-- 每个窗口 -->
+<script src="./js/forEachViewport.js"></script>
+<!-- 图片浏览器 -->
+<script src="./js/imageViewer.js"></script>
+<!-- 加载 模板 -->
+<script src="./js/loadTemplate.js"></script>
+<!-- 设置窗口覆盖 -->
+<script src="./js/setupViewportOverlays.js"></script>
+
+<script src="volume-viewer-demo_HM.js"></script>
+
+<!-- 3D显示的js -->
+<script src="./js/js3D/xtk.js"></script>
+<script src="./js/js3D/x.rendering.js"></script>
+<script src="./js/js3D/x.controller.js"></script>
+<script src="./js/js3D/x.scene.js"></script>
+<script src="./js/js3D/x.realtime.js"></script>
+<script src="./js/js3D/jquery.ui.slider.js"></script>
+<script src="./js/js3D/jquery.idTabs.js"></script>
+<script src="./js/js3D/jquery.sidebar.js"></script>
+<script src="./js/js3D/jquery.sidebar.volume.js"></script>
+
+<script src="./js/js_rotate/rotateSlider.js"></script>
+<script src="./js/js_rotate/transform_copy.js"></script>
+
+
+<script>
+    var flag_D = true;
+    var flag_UP = true;
+    var files;
+    var NewData;
+    ren3d = null;
+    configurator = function() {
+
+    };
+
+    console.log(files);
+    // 负载在HTML模板
+    var viewportTemplate; // 视图模板
+    loadTemplate("templates/viewport.html", function (element) {
+        console.log(element);
+        viewportTemplate = element;
+    });
+
+    var studyViewerTemplate; // the study 视图模板
+    loadTemplate("templates/studyViewer.html", function (element) {
+        studyViewerTemplate = element;
+        // 构建 可见视图
+        studyViewerTemplate.removeClass('hidden');
+        // 向选项卡内容添加部分
+        studyViewerTemplate.appendTo('#tabContent');
+    });
+
+    // 主要调整
+    function resizeMain() {
+        var height = $(window).height();
+        $('#main').height(height - 62);
+        $('#tabContent').height(height - 50 - 62 - 19);
+    }
+
+    // 调用窗口调整大小
+    $(window).resize(function () {
+        resizeMain();
+        //resizeStudyViewer1();
+    });
+    resizeMain();
+    // resizeStudyViewer1();
+
+    //防止滚动iOS
+    document.body.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    });
+    // Resize study viewer
+    function resizeStudyViewer1() {
+
+        $("#volume-viewer").css({
+            width: '60%',
+            height: '100%'
+        });
+        $("#brainbrowser").css({
+            height: '100%',
+            width: '100%'
+        });
+        $("#edit").css({
+            height: '100%',
+            width: '100%'
+        });
+        $(".canvas-div").css({
+            height: '46%',
+            width: '49%'
+        });
+
+        var canvas_div = document.getElementsByClassName("canvas-div");
+        $(".scroll").css({
+            height: canvas_div[0].clientHeight - 91,
+        });
+        for(var el of canvas_div){
+            var canvas = el.firstElementChild;
+            if (canvas.height > 110) {
+                //var oldCanvasWidth = enabledElement.canvas.width;
+                //var oldCanvasHeight = enabledElement.canvas.height;
+                //setCanvasSize(element, enabledElement.canvas);
+                //if (canvas.width + 30 !== el.clientWidth) {
+                    canvas.width = el.clientWidth - 35;
+                    canvas.style.width = "".concat(el.clientWidth - 35, "px");
+                //} // Avoid setting the same value because it flashes the canvas with IE and Edge
+
+                //if (canvas.height !== el.clientHeight) {
+                    canvas.height = el.clientHeight;
+                    canvas.style.height = "".concat(el.clientHeight, "px");
+
+                //}
+            }
+        }
+
+    }
+
+    // debug logging (for mobile)
+    _LOG_ = false;
+
+    function log(msg) {
+
+        if (!_LOG_) {
+            return;
+        }
+
+        var now = new Date();
+        var timestamp = now.getFullYear() + '-' + (now.getMonth() + 1) + '-'
+            + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':'
+            + now.getSeconds();
+        //$('#log').html($('#log').html()+timestamp+' '+msg+'<br>');
+    }
+
+    var _current_3d_content = null;
+    var _current_Ax_content = null;
+    var _current_Sag_content = null;
+    var _current_Cor_content = null;
+
+
+    function showLarge(el2, new3d_content) {
+
+        // jump out if the renderers were not set up
+        if (!_current_3d_content || !_current_Ax_content || !_current_Sag_content ||
+            !_current_Cor_content) {
+
+            console.log('nothing to do');
+
+            return;
+
+        }
+        // from Stackoverflow http://stackoverflow.com/a/6391857/1183453
+
+        var el1 = jQuery('#3d');
+        el1.prepend('<span/>'); // drop a marker in place
+        var tag1 = jQuery(el1.children()[0]);
+        var old_content = tag1.nextAll();
+
+        tag1.replaceWith(el2.children('div, canvas'));
+
+        el2.prepend('<span/>');
+        var tag2 = jQuery(el2.children()[0]);
+        tag2.replaceWith(old_content);
+
+        // adjust the XTK containers
+
+        var _2dcontainerId = el2.attr('id');
+        var _orientation = _2dcontainerId.replace("slice","");
+
+        if (_orientation == 'ren3d') {
+            return;
+        }
+
+        var _old_2d_content = eval('_current_' + _orientation + '_content');
+        var _old_3d_content = _current_3d_content;
+
+        _current_3d_content.container = document.getElementById(_2dcontainerId);
+        _old_2d_content.container = document.getElementById('3d');
+
+        // .. and update the layout
+        _current_3d_content = _old_2d_content;
+        eval('_current_' + _orientation + '_content = _old_3d_content');
+
+        // fire resize event
+        var evt = document.createEvent('UIEvents');
+        evt.initUIEvent('resize', true, false, window, 0);
+        window.dispatchEvent(evt);
+
+    };
+    MenuItemSlider;
+</script>
+</div>
+</body>
+</html>
