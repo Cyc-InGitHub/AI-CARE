@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>诊断思维训练</title>
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/diagnostic-reasoning.css}" rel="stylesheet"/>
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" th:classappend="${isMobile} ? 'canvas-menu'" style="overflow: hidden">
+<div id="wrapper">
+
+    <div class="page-heading">
+        <div class="ai-logo"></div>
+        <span class="ai-title">爱凯乐 | 诊断思维训练平台</span>
+        <div id="navigation">
+            <div class="home-page">
+                <span>首页</span>
+            </div>
+            <div class="exam">
+                <span>考试中心</span>
+            </div>
+            <div class="data-publish">
+                <span>数据发布</span>
+            </div>
+            <div class="contact-us">
+                <span>联系我们</span>
+            </div>
+            <div class="login_register">
+                <span class="login">登录</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span class="register">注册</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="bg_color" class="ax_default">
+        <img id="bg_img" class="img " th:src="@{/page_1/images/page_1/u0.svg}"/>
+    </div>
+
+    <div id="paragraph" class="ax_default">
+        <div id="paragraph-text" class="text ">
+            <p><span>诊断思维训练平台 </span></p>
+        </div>
+    </div>
+
+    <div id="line" class="ax_default">
+        <img id="line-img" class="img " th:src="@{/page_1/images/page_1/u12.svg}"/>
+    </div>
+
+    <div id="subtitle" class="ax_default">
+        <div id="subtitle-text" class="text ">
+            <p><span>为每个医生配备两个博士</span></p>
+        </div>
+    </div>
+
+    <div class="subject-div-1">
+        <div class="medicine subject" onclick="medicine('1')">
+            <span class="sub-text">内科学</span>
+            <div class="medicine-book sub-book"></div>
+        </div>
+        <div class="surgery subject">
+            <span class="sub-text">外科学</span>
+            <div class="surgery-book sub-book"></div>
+        </div>
+        <div class="pathology subject">
+            <span class="sub-text">病理学</span>
+            <div class="pathology-book sub-book"></div>
+        </div>
+    </div>
+    <div class="subject-div-2">
+        <div class="gynecology-obstetrics subject" >
+            <span class="sub-text">妇产科学</span>
+            <div class="obstetrics-book sub-book"></div>
+        </div>
+        <div class="stomatology subject">
+            <span class="sub-text">口腔医学</span>
+            <div class="stomatology-book sub-book"></div>
+        </div>
+        <div class="pediatrics subject">
+            <span class="sub-text">儿科学</span>
+            <div class="pediatrics-book sub-book"></div>
+        </div>
+    </div>
+
+    <div id="placeholder" class="ax_default">
+        <div id="placeholder-div-1" class=""></div>
+        <div id="placeholder-text" class="text ">
+            <p><span>推荐影像</span></p>
+        </div>
+        <div id="placeholder-div-2" class=""></div>
+    </div>
+
+    <div class="recommended-img">
+        <div class="recommended-1 img-div">
+            <span class="recommend-text">111</span>
+        </div>
+        <div class="recommended-2 img-div">
+            <span class="recommend-text">222</span>
+        </div>
+
+        <div class="recommended-3 img-div">
+            <span class="recommend-text">333</span>
+        </div>
+
+        <div class="recommended-4 img-div">
+            <span class="recommend-text">444</span>
+        </div>
+
+        <div class="recommended-5 img-div">
+            <span class="recommend-text">555</span>
+        </div>
+
+        <div class="recommended-6 img-div">
+            <span class="recommend-text">666</span>
+        </div>
+
+    </div>
+
+    <div id="footer" class="ax_default">
+
+    </div>
+
+</div>
+
+<!--  js测试开始  -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+
+    function medicine(typeId) {
+        window.location.href = ctx + 'test/index/test2?typeId='+typeId
+    };
+
+</script>
+<!--  js测试结束  -->
+
+</body>
+</html>

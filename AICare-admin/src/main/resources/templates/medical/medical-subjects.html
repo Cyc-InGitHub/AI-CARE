@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>诊断思维训练2</title>
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/medical-subjects.css}" rel="stylesheet"/>
+</head>
+<body class="fixed-sidebar full-height-layout gray-bg" th:classappend="${isMobile} ? 'canvas-menu'" style="overflow: hidden">
+<div id="wrapper">
+    <div class="page-heading">
+        <div class="ai-logo"></div>
+        <span class="ai-title">爱凯乐 | 诊断思维训练平台</span>
+        <div id="navigation">
+            <div class="home-page">
+                <span>首页</span>
+            </div>
+            <div class="exam">
+                <span>考试中心</span>
+            </div>
+            <div class="data-publish">
+                <span>数据发布</span>
+            </div>
+            <div class="contact-us">
+                <span>联系我们</span>
+            </div>
+            <div class="login_register">
+                <span class="login">登录</span>
+                <span>&nbsp;|&nbsp;</span>
+                <span class="register">注册</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="contain">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3" >
+                    <div class="Tree">
+<!--                        <div class="each">-->
+<!--                            <input type="text" value="" name="" id="search" />-->
+<!--                            <input type="submit" value="搜索" id="search_btn">-->
+<!--                            <input type="submit" value="重置" id="over_btn">-->
+<!--                        </div>-->
+                        <div class="typeId" style="box-shadow: 0 0 20px #cccccc;">
+<!--                            <div id="book" class="glyphicon glyphicon-list"></div>-->
+                            <div id="book" class=""></div>
+                            <span id="sub-typename">检查技术</span>
+
+                        </div>
+                        <div id="menuTree">
+
+                        </div>
+                        <ul id="search_list" style="display: none">
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 white" style="height: 856px;position: relative" >
+                    <div class="sub-type">
+                        <div id="arrow_left"></div>
+                        <span class="border_left">检查技术</span>
+                        <div>
+                            <input type="submit" value="上传病例" id="upload_btn">
+                        </div>
+                        <div class="each">
+                            <input type="text" value="" name="" id="search" />
+                            <input type="submit" value="搜索" id="search_btn">
+                            <input type="submit" value="重置" id="over_btn">
+                        </div>
+                    </div>
+                    <div class="col-lg-12" id="list_search">
+
+                    </div>
+
+                    <ul class="pagination"></ul>
+
+                </div>
+
+                <div class="page col-lg-12">
+                    <ul id="pageList">
+
+                    </ul>
+                </div>
+            </div>
+<!--            <div id="left">-->
+<!--                <div id="subject">-->
+<!--                    <div class="sub-book"></div>-->
+<!--                    <span id="subject-title">内科学</span>-->
+<!--                </div>-->
+<!--                <div id="sub-contain">-->
+<!--                    <div class="">-->
+<!--                        <span>呼吸系统</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div id="right">-->
+<!--                <div id="indexes">-->
+<!--                    <span id="arrow"> >> </span>-->
+<!--                    <span id="sub-title">呼吸系统</span>-->
+<!--                    <div class="search">-->
+<!--                        <div class="glyphicon glyphicon-search"></div>-->
+<!--                    </div>-->
+<!--                    <div class="upload">-->
+<!--                        <span>上传病例</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="col-sm-12 select-table table-striped">-->
+<!--                    <table id="bootstrap-table"></table>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+        </div>
+
+    </div>
+
+
+
+
+    <div id="footer" class="ax_default">
+
+    </div>
+</div>
+
+<!--  js测试开始  -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/paging.js}"></script>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+    var sessionStorage;
+
+    //获取url中的参数
+    function getUrlParam(parentId) {
+        var reg = new RegExp("(^|&)" + parentId + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    var parentId = getUrlParam('parentId');
+    sessionStorage.topId = parentId;
+
+    if (parentId == 1) {
+        document.getElementById("sub-typename").innerHTML="内科学";
+        document.getElementsByClassName("border_left")[0].innerHTML="内科学";
+    } else if (parentId == 2) {
+        document.getElementById("sub-typename").innerHTML="外科学";
+        document.getElementsByClassName("border_left")[0].innerHTML="外科学";
+    }else if (parentId == 3) {
+        document.getElementById("sub-typename").innerHTML="病理学";
+        document.getElementsByClassName("border_left")[0].innerHTML="病理学";
+    }else if (parentId == 4) {
+        document.getElementById("sub-typename").innerHTML="妇产科学";
+        document.getElementsByClassName("border_left")[0].innerHTML="妇产科学";
+    }else if (parentId == 5) {
+        document.getElementById("sub-typename").innerHTML="口腔医学";
+        document.getElementsByClassName("border_left")[0].innerHTML="口腔医学";
+    }else {
+        document.getElementById("sub-typename").innerHTML="儿科学";
+        document.getElementsByClassName("border_left")[0].innerHTML="儿科学";
+    };
+
+    $(function () {
+        $.ajax({
+            type:"POST",
+            url: ctx + "medical/classes/classesList?parentId=" + parentId,
+            headers:{'Content-Type':'application/json;charset=utf8'},
+
+            success:function(data){
+                var json = data;
+                var str = "";
+                var forTree = function(o){
+                    for(var i=0;i < o.length;i++){
+
+                        var urlstr = "";
+                        sessionStorage.obj = o[0].class_id;
+                        try{
+                            urlstr ='<div id='+o[i].class_id+'><span onClick="selectC('+ o[i].class_id + ');">'
+                                + o[i].class_name +"</span><ul>";
+
+                            str += urlstr;
+
+                            str += "</ul></div>";
+                        }catch(e){}
+                    }
+
+                    return str;
+
+                };
+
+                /*添加无级树*/
+                document.getElementById("menuTree").innerHTML = forTree(json);
+
+                $.ajax({
+                    type:"POST",
+                    url:ctx + "medical/classtype/typeList",
+                    async : false,
+                    data:{
+                        parentId:json[0].class_id,
+                        page:1
+                    },
+                    success:function(data){
+                        var type = data;
+
+                        var Typestr = "";
+
+                        var typeTree = function(o){
+                            for(var i=0;i < o.length;i++){
+
+                                var urlstr = "";
+                                try{
+                                    urlstr ='<div><span onClick="selectT('+ o[i].type_id + ');">'
+                                        + o[i].type_name +"</span><ul>";
+
+                                    Typestr += urlstr;
+
+                                    Typestr += "</ul></div>";
+                                }catch(e){}
+                            }
+                            return Typestr;
+                        };
+                        //var f = $("#menuTree").find("div ul")[0];
+                        $("#menuTree").find("div ul")[0].innerHTML = typeTree(type);
+                        $("#menuTree").find("div ul")[0].style.cssText = 'display:block;height:300px;overflow:scroll';
+
+                        $.ajax({
+                            type:"POST",
+                            url: ctx + "medical/classtype/TypeListPage",
+                            data:{
+                                parentId:parentId,
+                                page:1
+                            },
+                            success:function(data){
+
+                                $(".white #list_search .list").remove();
+                                var json = data.data;
+                                var list = "";
+                                for (var i = 0;i<json.length;i++){
+                                    list = "<div class=\"col-lg-12 list\" >\n" +
+                                        "                <div class=\"list_DCM\">\n" +
+                                        "                    <p class=\"DCM_left\">\n" +
+                                        json[i].type_name  +
+                                        "                    </p>\n" +
+                                        "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].d_id + ")'>\n" +
+                                        "                        影像分析\n" +
+                                        "                    </button>\n" +
+                                        "                </div>\n" +
+                                        "            </div>";
+
+                                    $("#list_search").append(list)
+                                }
+
+                            }
+                        });
+
+                        $(".pagination").Paging({
+                            isFirst:true,   //首页按钮是否显示
+                            isPre:true,     //下一页按钮是否显示
+                            showRecordNum:10, // 一页列表数量
+                            totalNum:type.length,   // 总列表数量
+                            showNum:function(data){
+
+                                var parentId = sessionStorage.obj;
+                                var page = data;
+
+                                $.ajax({
+                                    type:"POST",
+                                    url: ctx + "medical/classtype/TypeListPage",
+                                    data:{
+                                        parentId:parentId,
+                                        page:page
+                                    },
+                                    success:function(data){
+
+                                        $(".white #list_search .list").remove();
+                                        var json = data.data;
+                                        var list = "";
+                                        for (var i = 0;i<json.length;i++){
+                                            list = "<div class=\"col-lg-12 list\" >\n" +
+                                                "                <div class=\"list_DCM\">\n" +
+                                                "                    <p class=\"DCM_left\">\n" +
+                                                json[i].type_name  +
+                                                "                    </p>\n" +
+                                                "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].d_id + ")'>\n" +
+                                                "                        影像分析\n" +
+                                                "                    </button>\n" +
+                                                "                </div>\n" +
+                                                "            </div>";
+
+                                            $("#list_search").append(list)
+                                        }
+
+                                    }
+                                })
+                            }
+                        });
+
+                    }
+                });
+
+                selectC  =  function (data) {
+                    var infostr = JSON.stringify(data);//转换json
+                    sessionStorage.obj = infostr;
+                    var page = 1;
+                    $(".white #list_search .list").remove();
+                    $(".white").css("display" , "block");
+                    //$(".white1").css("display" , "none");
+                    $(".pagination").css("display" , "block");
+                    $("#list_search").css("height", "");
+                    $("#list_search").css("overflow", "");
+
+                    $.ajax({
+                        type:"POST",
+                        url:ctx + "medical/classtype/typeList",
+                        async : false,
+                        data:{
+                            parentId:data,
+                            page:page
+                        },
+
+                        success:function(data){
+                            var type = data;
+
+                            var Typestr = "";
+
+                            var typeTree = function(o){
+                                for(var i=0;i < o.length;i++){
+
+                                    var urlstr = "";
+                                    try{
+                                        urlstr ='<div><span onClick="selectT('+ o[i].type_id + ');">'
+                                            + o[i].type_name +"</span><ul>";
+
+                                        Typestr += urlstr;
+
+                                        Typestr += "</ul></div>";
+                                    }catch(e){}
+                                }
+                                return Typestr;
+                            };
+                            $('#'+infostr+'').find("ul")[0].innerHTML = typeTree(type);
+                            $('#'+infostr+'').find("ul")[0].style.cssText = 'height:300px;overflow:scroll';
+
+                            $.ajax({
+                                type:"POST",
+                                url: ctx + "medical/classtype/TypeListPage",
+                                data:{
+                                    parentId:sessionStorage.obj,
+                                    page:1
+                                },
+                                success:function(data){
+
+                                    $(".white #list_search .list").remove();
+                                    var json = data.data;
+                                    var list = "";
+                                    for (var i = 0;i<json.length;i++){
+                                        list = "<div class=\"col-lg-12 list\" >\n" +
+                                            "                <div class=\"list_DCM\">\n" +
+                                            "                    <p class=\"DCM_left\">\n" +
+                                            json[i].type_name  +
+                                            "                    </p>\n" +
+                                            "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].type_id + ")'>\n" +
+                                            "                        影像分析\n" +
+                                            "                    </button>\n" +
+                                            "                </div>\n" +
+                                            "            </div>";
+
+                                        $("#list_search").append(list)
+                                    }
+
+                                }
+                            });
+
+                            $(".pagination").Paging({
+                                isFirst:true,   //首页按钮是否显示
+                                isPre:true,     //下一页按钮是否显示
+                                showRecordNum:10, // 一页列表数量
+                                totalNum:type.length,   // 总列表数量
+                                showNum:function(data){
+
+
+                                    var typeId = sessionStorage.obj;
+                                    var page = data;
+
+                                    $.ajax({
+                                        type:"POST",
+                                        url: ctx + "medical/classtype/TypeListPage",
+                                        data:{
+                                            parentId:typeId,
+                                            page:page
+                                        },
+                                        success:function(data){
+
+                                            $(".white #list_search .list").remove();
+                                            var json = data.data;
+                                            var list = "";
+                                            for (var i = 0;i<json.length;i++){
+                                                list = "<div class=\"col-lg-12 list\" >\n" +
+                                                    "                <div class=\"list_DCM\">\n" +
+                                                    "                    <p class=\"DCM_left\">\n" +
+                                                    json[i].type_name  +
+                                                    "                    </p>\n" +
+                                                    "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].type_id + ")'>\n" +
+                                                    "                        影像分析\n" +
+                                                    "                    </button>\n" +
+                                                    "                </div>\n" +
+                                                    "            </div>";
+
+                                                $("#list_search").append(list)
+                                            }
+
+                                        }
+                                    })
+
+
+
+                                }
+                            });
+
+                            var list = "";
+
+                            // if(type.length ==0){
+                            //     list = '<div style="text-align: center;font-size: 14px;margin-top: 220px;color: #999999" class="list">' + data.msg + '</div>'
+                            //     $("#list_search").after(list)
+                            // }else{
+                            //     for (var i = 0;i<type.length;i++){
+                            //         list = "<div class=\"col-lg-12 list\" >\n" +
+                            //             "                <div class=\"list_DCM\">\n" +
+                            //             "                    <p class=\"DCM_left\">\n" +
+                            //             type[i].type_name  +
+                            //             "                    </p>\n" +
+                            //             "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + type[i].type_id + ")'>\n" +
+                            //             "                        影像分析\n" +
+                            //             "                    </button>\n" +
+                            //             "                </div>\n" +
+                            //             "            </div>";
+                            //
+                            //         $("#list_search").append(list)
+                            //     }
+                            // }
+
+
+
+
+
+                        }
+                    });
+                };
+                $("#menuTree").find("div span").click(function(){
+
+                    $("#list_search").css("height", "");
+                    $("#list_search").css("overflow", "");
+
+                    var html = this.innerHTML;
+
+                    $(".border_left").html(html);
+                    $(this).css("color" , "#0477d0");
+                    $(this).parent("div").parent("ul").siblings("span").css("color" , "#000");
+                    $(this).parent("div").siblings("div").children("span").css("color" , "#000");
+                    var ul = $(this).siblings("ul");
+                    var spanStr = $(this).html();
+                    var spanContent = spanStr.substr(3,spanStr.length);
+
+                    if(ul.find("div").html() != null){
+                        if(ul.css("display") == "none"){
+                            ul.show();
+
+                            $(this).css("background-size" , "auto");
+                            $(this).css("background-position" , "200px center");
+                            $(this).css("color" , "#000");
+                            $(this).parent("div").siblings("div").children("ul").hide()
+                        }else{
+                            ul.hide();
+
+                            $(this).css("color" , "#000");
+
+                            $(this).css("background-size" , "auto");
+                            $(this).css("background-position" , "200px center");
+                        }
+                    }else{
+                        $(this).css("background-image" , "none");
+                    }
+
+
+                })
+            }
+        });
+
+        $("#search_btn").click(function () {
+            var typeName = $("#search").val();
+            if (typeName != ""){
+                $(".pagination").css("display" , "none")
+                $.ajax({
+                    url:ctx + "medical/classtype/fuzzysearch",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        typeName : $("#search").val(),
+                        topId : sessionStorage.topId
+                    },
+                    success:function(data){
+                        var json = data.searchList;
+
+                        $(".white #list_search .list").remove();
+                        // $("#menuTree").css("display" , "none");
+                        $("#search_list").css("display" , "block");
+                        for (var i = 0;i<json.length;i++){
+                            list = "<div class=\"col-lg-12 list\" >\n" +
+                                "                <div class=\"list_DCM\">\n" +
+                                "                    <p class=\"DCM_left\">\n" +
+                                json[i].type_name  +
+                                "                    </p>\n" +
+                                "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].type_id + ")'>\n" +
+                                "                        影像分析\n" +
+                                "                    </button>\n" +
+                                "                </div>\n" +
+                                "            </div>";
+
+                            $("#list_search").append(list)
+                        }
+
+                    }
+                });
+                $("#list_search").css("height", "90%");
+                $("#list_search").css("overflow", "scroll");
+            }
+
+        });
+
+    });
+
+    function selectT(id) {
+        $(".pagination").css("display" , "none");
+        $.ajax({
+            type:"POST",
+            url: ctx + "medical/classtype/typeLast",
+            data:{
+                typeId:id,
+            },
+            success:function(data){
+
+                $(".white #list_search .list").remove();
+                var json = data;
+                var list = "";
+                for (var i = 0;i<json.length;i++){
+                    list = "<div class=\"col-lg-12 list\" >\n" +
+                        "                <div class=\"list_DCM\">\n" +
+                        "                    <p class=\"DCM_left\">\n" +
+                        json[i].type_name  +"--病例"+Number(i+1)+
+                        "                    </p>\n" +
+                        "                    <button type=\"button\" class=\"DCM_btn\" onclick='selectB( " + json[i].type_id + ")'>\n" +
+                        "                        影像分析\n" +
+                        "                    </button>\n" +
+                        "                </div>\n" +
+                        "            </div>";
+
+                    $("#list_search").append(list)
+                }
+                $(".border_left").html(json[0].type_name);
+            }
+        })
+
+    }
+
+    function selectB(id) {
+
+        if (id == undefined){
+            $(".alertT").css("display" , "block");
+            window.open(ctx + 'imageView/imageView/view_image_H.html')
+        } else{
+            alert("heheehe")
+           //window.open("../../imageView/view_image_H.html")
+           // window.location.href = ctx + 'test/index/medicalSub?parentId='+parentId
+        }
+
+    };
+
+    $(function () {
+        $(".alertTitle .center .alertBtn").click(function () {
+            $(".alertT").css("display" , "none")
+        });
+        $("#over_btn").click(function () {
+            $("#menuTree").css("display" , "block");
+            $("#search_list").css("display" , "none");
+            $("#search").val("")
+        })
+    });
+
+    // $(function () {
+    //     $.ajax({
+    //         type:"POST",
+    //         url:url + "/api/bannerurl?BannerTypeId=2",
+    //         headers:{'Content-Type':'application/json;charset=utf8','token':token1},
+    //
+    //         success:function (data) {
+    //
+    //             $("#banner_txt").text(data.banner_text);
+    //             $(".banner img").attr("src" , url + data.banner_url)
+    //
+    //         }
+    //     })
+    // });
+</script>
+<!--  js测试结束  -->
+
+</body>
+</html>
