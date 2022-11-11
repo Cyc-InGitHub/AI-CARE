@@ -1,0 +1,549 @@
+html {
+    width: auto;
+    height:100%;
+}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+}
+
+#wrapper {
+    width: 100%;
+    height: calc(100vh);
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    overflow:scroll;
+}
+
+.page-heading {
+    width: 100%;
+    height: 100px;
+    background: rgba(41, 124, 130, 1);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    /*box-shadow: 0px 5.333333492279053px 5px rgba(0.4833333194255829, 0.4833333194255829, 0.4833333194255829, 0.25);*/
+    overflow: hidden;
+    z-index: 10;
+}
+
+.ai-title {
+    width: auto;
+    position: absolute;
+    top: 32%;
+    margin-left: 6.4%;
+    opacity: 1;
+    text-align: left;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.ai-logo {
+    width: 4.17%;
+    height: 66%;
+    background: url(../img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 17px;
+    left: 30px;
+    overflow: hidden;
+}
+
+#navigation{
+    width: 40%;
+    height: 100%;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    margin-left: 60%;
+    font-family: Microsoft YaHei, serif;
+    font-size: 1.9rem;
+    opacity: 1;
+    display: flex;
+    align-items: center; /*垂直居中*/
+    justify-content: center; /*水平居中*/
+}
+
+.login_register {
+    margin-left: 6.5%;
+}
+
+.login {
+}
+
+.register {
+}
+
+.contact-us {
+    margin-left: 6.5%;
+}
+
+.data-publish {
+    margin-left: 6.5%;
+}
+
+.exam {
+    margin-left: 6.5%;
+}
+
+.home-page {
+    font-weight: Bold;
+}
+
+.home-page:hover,.exam:hover,.data-publish:hover,
+.contact-us:hover,.login:hover,.register:hover{
+    font-weight: Bold;
+}
+
+#bg_color {
+    border-width:0px;
+    position:absolute;
+    left:0px;
+    top:65px;
+    width:100%;
+    height:494px;
+    display:flex;
+    text-align:justify;
+    text-justify:inter-word;
+}
+
+#bg_img {
+    border-width:0px;
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:494px;
+}
+
+#paragraph {
+    border-width:0px;
+    position:absolute;
+    left:32.14%;
+    top:200px;
+    width:43.75%;
+    height:94px;
+    display:flex;
+    font-family:" font-family: Microsoft YaHei-Bold, Microsoft YaHei;", sans-serif;
+    font-weight:400;
+    font-style:normal;
+    font-size:70px;
+    color:rgba(255, 255, 255, 0.8705882352941177);
+}
+
+#paragraph .text {
+    position:absolute;
+    align-self:flex-start;
+    padding:0px 0px 0px 0px;
+    box-sizing:border-box;
+    width:100%;
+}
+
+#paragraph-text {
+    border-width:0px;
+    white-space:nowrap;
+    text-transform:none;
+}
+
+#line-img {
+    border-width:0px;
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:56.77%;
+    height:2.5px;
+}
+
+#line {
+    border-width:0px;
+    position:absolute;
+    left:33.92%;
+    top:299px;
+    width:70%;
+    height:2.5px;
+    display:flex;
+}
+
+#subtitle {
+    border-width:0px;
+    position:absolute;
+    left:45%;
+    top:312px;
+    width:9.3%;
+    height:40px;
+    display:flex;
+    font-family:"Microsoft YaHei-Bold, Microsoft YaHei;", sans-serif;
+    font-weight:400;
+    font-style:normal;
+    font-size:2.6rem;
+    color:rgba(255, 255, 255, 0.8705882352941177);
+}
+
+#subtitle .text {
+    position:absolute;
+    align-self:flex-start;
+    padding:0px 0px 0px 0px;
+    box-sizing:border-box;
+    width:100%;
+}
+
+#subtitle-text {
+    border-width:0px;
+    white-space:nowrap;
+    text-transform:none;
+}
+
+.ax_default {
+    font-family:"Arial Normal", "Arial", sans-serif;
+    font-weight:400;
+    font-style:normal;
+    font-size:13px;
+    letter-spacing:normal;
+    color:#333333;
+    vertical-align:none;
+    text-align:center;
+    line-height:normal;
+    text-transform:none;
+}
+
+.subject-div-1 {
+    width: 69.6%;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 462px;
+    left: 15.65%;
+    overflow: hidden;
+}
+.subject-div-2 {
+    width: 69.6%;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 659px;
+    left: 15.65%;
+    overflow: hidden;
+}
+
+.surgery {
+    position: absolute;
+    left: 393px;
+}
+
+.medicine {
+    left: 2px;
+    position: relative;
+}
+
+.pathology {
+    position: absolute;
+    left: 786px;
+}
+
+.subject{
+    width: 368px;
+    height: 97.6%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    top: 2px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 1);
+    /*border-top-left-radius: 8px;*/
+    /*border-top-right-radius: 8px;*/
+    /*border-bottom-left-radius: 8px;*/
+    /*border-bottom-right-radius: 8px;*/
+    border-radius: 7px 7px 7px 7px;
+    /*box-shadow: 0px 0px 15px rgba(0.45604169368743896, 0.45980003476142883, 0.550000011920929, 0.550000011920929);*/
+    box-shadow: 0px 0px 15px 1px rgba(116,117,140,0.5);
+    /*box-shadow:5px 5px 5px #000,5px -5px 5px #000,-5px 5px 5px #000,-5px -5px 5px #000;*/
+}
+
+.gynecology-obstetrics {
+    position: relative;
+    left: 2px;
+}
+
+.stomatology {
+    position: absolute;
+    left: 393px;
+}
+
+.pediatrics {
+    position: absolute;
+    left: 786px;
+}
+
+.medicine:hover,.surgery:hover,.pathology:hover,
+.gynecology-obstetrics:hover,.stomatology:hover,.pediatrics:hover
+{
+    background: url("../page_1/images/page_1/u90.svg");
+}
+.medicine:hover .sub-text,.surgery:hover .sub-text,.pathology:hover .sub-text,
+.gynecology-obstetrics:hover .sub-text,.stomatology:hover .sub-text,
+.pediatrics:hover .sub-text{
+    color: #FFFFFF;
+}
+.medicine:hover .sub-book,.surgery:hover .sub-book,.pathology:hover .sub-book,
+.gynecology-obstetrics:hover .sub-book,.stomatology:hover .sub-book,
+.pediatrics:hover .sub-book{
+    background: url("../img/book2.png");
+}
+
+.sub-book{
+    width: 65px;
+    height: 65px;
+    background: url("../img/book1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.medicine-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.surgery-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.pathology-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.obstetrics-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.stomatology-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.pediatrics-book {
+    position: absolute;
+    top: 46px;
+    left: 39px;
+}
+
+.sub-text{
+    width: 251px;
+    color: rgba(60, 60, 60, 1);
+    position: absolute;
+    top: 52px;
+    left: 116px;
+    font-family: Microsoft YaHei, serif;
+    font-weight: Bold;
+    font-size: 3.2rem;
+    opacity: 1;
+    text-align: left;
+    line-height: 37px;
+    letter-spacing: 3px;
+}
+
+#placeholder {
+    border-width:0px;
+    position:absolute;
+    left:30.47%;
+    top:855px;
+    width:38.87%;
+    height:54px;
+    display:flex;
+    background:inherit;
+    background-color:rgba(255, 255, 255, 1);
+    box-sizing:border-box;
+    /*border-width:1px;*/
+    /*border-style:solid;*/
+    border-color:rgba(121, 121, 121, 1);
+    border-radius:0px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+#placeholder-div-1 {
+    border-width:0px;
+    left:257px;
+    top:17px;
+    width:10px;
+    height:27px;
+    /*display:flex;*/
+    color:#297C82;
+    position:absolute;
+    background:inherit;
+    background-color:rgba(41, 124, 130, 1);
+    box-sizing:border-box;
+    /*border-width:1px;*/
+    border-style:solid;
+    border-color:rgba(121, 121, 121, 1);
+    border-radius:0px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+#placeholder .text {
+    position:absolute;
+    align-self:flex-start;
+    padding:0px 0px 0px 0px;
+    box-sizing:border-box;
+    width:100%;
+}
+#placeholder-text {
+    position:absolute;
+    background:inherit;
+    background-color:rgba(255, 255, 255, 0);
+    border:none;
+    border-radius:0px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    font-family:"Arial Negreta", "Arial Normal", "Arial", sans-serif;
+    font-weight:700;
+    font-style:normal;
+    font-size:26px;
+    left:10px;
+    top:12px;
+    width:128px;
+    height:37px;
+    border-width:0px;
+    white-space:nowrap;
+    text-transform:none;
+}
+#placeholder-div-2 {
+    border-width:0px;
+    left:399px;
+    top:17px;
+    width:10px;
+    height:27px;
+    color:#297C82;
+    position:absolute;
+    background:inherit;
+    background-color:rgba(41, 124, 130, 1);
+    box-sizing:border-box;
+    /*border-width:1px;*/
+    border-style:solid;
+    border-color:rgba(121, 121, 121, 1);
+    border-radius:0px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}
+
+.recommended-img {
+    width: 66.78%;
+    height: 390px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 930px;
+    left: 16.78%;
+    display: flex;
+    overflow: hidden;
+}
+
+.recommended-3 {
+    position: absolute;
+    left: 750px;
+}
+
+.recommended-2 {
+    position: absolute;
+    left: 375px;
+}
+
+.recommended-1 {
+    position: absolute;
+    left: 0px;
+}
+
+.recommended-6 {
+    position: absolute;
+    top: 197px;
+    left: 750px;
+}
+.recommended-5 {
+    position: absolute;
+    top: 197px;
+    left: 375px;
+}
+
+.recommended-4 {
+    position: absolute;
+    top: 197px;
+    left: 0px;
+}
+
+.img-div{
+    width: 372px;
+    height: 193px;
+    background: rgba(106, 106, 106, 1);
+    opacity: 1;
+    overflow: hidden;
+}
+
+.recommend-text{
+    width: 294px;
+    height: 21px;
+    color: rgba(255, 255, 255, 1);
+    font-family: Microsoft YaHei, serif;
+    font-size: 1.9rem;
+    line-height: 23px;
+    font-weight: 400;
+    opacity: 1;
+    position: absolute;
+    top: 144px;
+    left: 17px;
+    text-align: left;
+}
+
+#footer {
+    position:absolute;
+    top: 1382px;
+    width:100%;
+    height:195px;
+    display:flex;
+    background:inherit;
+    background-color:rgba(41, 124, 130, 1);
+    box-sizing:border-box;
+    border-width:1px;
+    border-style:solid;
+    border-color:rgba(121, 121, 121, 1);
+    border-radius:0px;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+    box-shadow:none;
+}

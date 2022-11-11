@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+html, body {
+    font-size: 100%;
+    font-family: 微软雅黑, YaHei, serif;
+}
+
+body{
+    font-family: 微软雅黑,Microsoft YaHei,Verdana, Arial, Helvetica,sans-serif;
+    background: #ffffff;
+    margin: 0px;
+    padding-bottom: 0px;
+    height: 100%;
+    font-size: 13px;
+}
+
+.dap_form_single_input {
+    max-width: 1280px;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.dap_data_form {
+    line-height: 200%;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 0 2px 2px rgb(204 204 102);
+    -webkit-box-sizing: border-box;
+    padding-bottom: 15px;
+}
+
+.dap_form_title {
+    text-align: center;
+    padding-left: 20PX;
+    display: inline-block;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #575655;
+    font-size: 31.5px;
+    line-height: 40px;
+    text-rendering: optimizelegibility;
+    outline: none !important;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.dap_data_form>tbody>tr>td>.dap_layout_table {
+    margin-bottom: 30px;
+}
+
+.dap_border_table, .gray_border_table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border: 0px solid #F0F0F0;
+}
+
+.dap_border_table>tbody>tr>td, .gray_border_table>tbody>tr>td {
+    border: 0px solid #F0F0F0;
+}
+
+p {
+    font-size: 12px;
+    margin: 0 0 10px;
+    line-height: normal;
+}
+
+input[type=text], input[type=password], select, textarea {
+    border-color: #D8D9DA;
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+}
+
+input, button, select, textarea {
+    font-family: 微软雅黑,Microsoft YaHei,Verdana, Arial, Helvetica,sans-serif;
+}
+
+input, select, textarea {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    text-decoration: inherit;
+    color: inherit;
+    border: 1px solid #e3e3e3;
+    background: #fff;
+}
+
+.dap_data_normal {
+    background-color: #ffffff;
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+    padding: 4px 6px;
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+    vertical-align: middle;
+    margin: 2px;
+}
+
+button.dap_action {
+    margin-top: 10px;
+    margin-right: 5px;
+    display: inline-block;
+    padding: 8px 19px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    border-width: 1px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    font-weight: 400;
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    outline: none !important;
+    min-width: 120px;
+    color: #555555;
+    border-color: #ddd;
+    border-style: solid;
+    background: #fafafa;
+}
+
+button.dap_action_primary {
+    padding: 8px 19px;
+    background: #71c39a;
+    color: #fff;
+    text-decoration: none;
+    background-position: 0 -15px;
+    transition: background-position 0.1s linear;
+    text-shadow: none;
+    border-style: none;
+    border-width: 1px;
+    font-size: 17.5px;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    background-repeat: repeat-x;
+    display: inline-block;
+    margin-bottom: 0;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type='button'], button {
+    display: inline-block;
+    background: #f4f4f4;
+    border: none;
+    border-width: 1px;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    font-weight: 400;
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 4px 6px;
+}
