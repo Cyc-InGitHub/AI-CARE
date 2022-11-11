@@ -13,17 +13,36 @@ import java.util.List;
 @RequestMapping("/test/index")
 public class test {
 
-    private String prefix = "test" ;
+    private String prefix = "medical" ;
 
     /**
      * 跳转一个页面
      */
-    @GetMapping("/test")
+    @GetMapping("/medical")
     public String test() {
 
-        return prefix + "/test" ;
+        return prefix + "/diagnostic-reasoning" ;
 
     }
+    /**
+     * 跳转一个页面
+     */
+    @GetMapping("/medicalSub")
+    public String test2() {
+
+        return prefix + "/medical-subjects" ;
+
+    }
+    /**
+     * 跳转一个页面
+     */
+    @GetMapping("/medicalView")
+    public String test3() {
+
+        return "imageView/view_image_H" ;
+
+    }
+
     /**
      * 与数据库交互
      */
